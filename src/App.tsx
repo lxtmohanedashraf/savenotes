@@ -1,35 +1,65 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import {
+  Outlet,
+  RouterProvider,
+  createRootRoute,
+  createRoute,
+  createRouter,
+} from '@tanstack/react-router'
+import Home from './pages/Home';
+import Login from './pages/Login';
+import Register from './pages/Register';
+import Profile from './pages/Profile';
+import NoteEditor from './pages/NoteEditor';
+import Navbar from './components/Navbar';
 
-function App() {
-  const [count, setCount] = useState(0)
-
-  return (
+const rootRoute = createRootRoute({
+  component: () => (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <Navbar/>
+      <Outlet />
     </>
-  )
-}
+  ),
+})
 
-export default App
+const homeRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/',
+  component: () => <Home/>
+})
+
+const loginRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/login',
+  component: () => <Login/>
+})
+
+const registerRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/register',
+  component: () => <Register/>
+})
+
+const profileRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/profile',
+  component: () => <Profile/>
+})
+
+const noteEditorRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/notes/$noteId',
+  component: () => <NoteEditor/>
+})
+
+const routeTree = rootRoute.addChildren([homeRoute, loginRoute, profileRoute, noteEditorRoute, registerRoute])
+
+const router = createRouter({ routeTree, defaultPreload: 'intent' })
+
+
+const App = () => {
+  return (
+    <RouterProvider router={router} />
+  );
+};
+
+export default App;
