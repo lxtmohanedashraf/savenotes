@@ -1,11 +1,9 @@
-import { Component } from 'react'
+import { Component } from "react";
 
 export class NoteEditor extends Component {
   render() {
-    return (
-      <div>NoteEditor</div>
-    )
+    return <div>NoteEditor</div>;
   }
 }
 
-export default NoteEditor
+export default NoteEditor;
