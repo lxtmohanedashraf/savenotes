@@ -35,10 +35,10 @@ const Navbar = () => {
     <header className="bg-background text-foreground shadow-md p-4">
       <div className="container mx-auto flex justify-between items-center">
         <div
-          className="text-2xl font-semibold cursor-pointer text-primary hover:text-secondary transition-colors"
+          className="text-2xl font-extrabold cursor-pointer text-primary hover:text-secondary transition-colors"
           onClick={() => router.navigate({ to: "/" })}
         >
-          SaveNotes
+          Savenotes
         </div>
         <div className="flex items-center gap-4">
           {isAuthenticated ? (

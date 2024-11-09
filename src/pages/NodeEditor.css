@@ -1,0 +1,64 @@
+.note-editor {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .note-title {
+    font-size: 2.5em;
+    font-weight: bold;
+    border: none;
+    outline: none;
+    margin-bottom: 40px;
+    width: 100%;
+    color: #333;
+  }
+  
+  .note-title::placeholder {
+    color: #aaa;
+    font-weight: bold;
+  }
+  
+  .note-content .ql-editor {
+    padding-bottom: 20px;
+    font-size: 1.5em;
+    line-height: 1.5;
+    color: #333;
+    overflow-y: auto;
+  }
+  
+  /* Remove default Quill toolbar styling */
+  .ql-toolbar.ql-snow {
+    border: none;
+    padding: 0;
+  }
+  
+  /* Custom Quill editor toolbar styling */
+  .ql-toolbar .ql-picker-label,
+  .ql-toolbar .ql-picker-item {
+    color: #333;
+  }
+  
+  
+
+  .ql-container.ql-snow {
+    border: none;
+    box-shadow: none;
+  }
+  
+  .ql-toolbar.ql-snow {
+    border: none;
+    padding: 0;
+    margin-bottom: 40px;
+  }
+  
+  .ql-editor {
+    min-height: calc(100vh - 300px);
+    padding: 0;
+    font-size: 1em;
+    line-height: 1.6;
+    color: #333;
+    overflow-y: auto;
+    border: none;
+  }
+  

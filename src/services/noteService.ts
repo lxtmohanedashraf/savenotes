@@ -12,6 +12,16 @@ export const useNotes = () =>
     },
   });
 
+export const useSingleNote = (noteId: string) =>
+  useQuery<Note, Error>({
+    queryKey: ["notes", noteId],
+    queryFn: async () => {
+      const response = await axios.get<Note>(`/api/notes/${noteId}`);
+      return response.data;
+    },
+    enabled: !!noteId, // Ensures the query only runs if noteId is present
+  });
+
 export const useCreateNote = () => {
   const queryClient = useQueryClient();
   const router = useRouter();
@@ -26,6 +36,24 @@ export const useCreateNote = () => {
     onSuccess: (newNote: Note) => {
       queryClient.invalidateQueries({ queryKey: ["notes"] });
       router.navigate({ to: `/notes/${newNote.id}` });
+    },
+  });
+};
+
+export const useUpdateNote = (noteId: string) => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (updatedNote: Partial<Note>) => {
+      const response = await axios.patch<Note>(
+        `/api/notes/${noteId}`,
+        updatedNote
+      );
+      return response.data;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["notes"] });
+      queryClient.invalidateQueries({ queryKey: ["notes", noteId] });
     },
   });
 };
