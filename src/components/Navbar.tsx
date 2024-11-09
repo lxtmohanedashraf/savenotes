@@ -41,21 +41,6 @@ const Navbar = () => {
           SaveNotes
         </div>
         <div className="flex items-center gap-4">
-          <Button
-            variant="ghost"
-            onClick={() => router.navigate({ to: "/" })}
-            className="hover:bg-secondary hover:text-secondary-foreground"
-          >
-            My Notes
-          </Button>
-          <Button
-            variant="ghost"
-            onClick={() => router.navigate({ to: "/shared" })}
-            className="hover:bg-secondary hover:text-secondary-foreground"
-          >
-            Shared with Me
-          </Button>
-
           {isAuthenticated ? (
             <DropdownMenu>
               <DropdownMenuTrigger>

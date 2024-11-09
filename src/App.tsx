@@ -1,3 +1,4 @@
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {
   Outlet,
   RouterProvider,
@@ -12,6 +13,8 @@ import Profile from "./pages/Profile";
 import NoteEditor from "./pages/NoteEditor";
 import Navbar from "./components/Navbar";
 import AuthGuard from "./components/AuthGuard";
+
+const queryClient = new QueryClient();
 
 const rootRoute = createRootRoute({
   component: () => (
@@ -71,7 +74,11 @@ const routeTree = rootRoute.addChildren([
 const router = createRouter({ routeTree, defaultPreload: "intent" });
 
 const App = () => {
-  return <RouterProvider router={router} />;
+  return (
+    <QueryClientProvider client={queryClient}>
+      <RouterProvider router={router} />
+    </QueryClientProvider>
+  );
 };
 
 export default App;

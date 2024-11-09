@@ -17,15 +17,23 @@ const Profile = () => {
     const unsubscribe = auth.onAuthStateChanged(async (currentUser) => {
       if (currentUser) {
         setUser(currentUser);
-        const userDocRef = doc(firestore, "users", currentUser.uid);
-        const userDoc = await getDoc(userDocRef);
-        if (userDoc.exists()) {
+
+        let userDoc;
+        try {
+          const userDocRef = doc(firestore, "users", currentUser.uid);
+          userDoc = await getDoc(userDocRef);
+        } catch (error) {
+          console.error("Error fetching document:", error);
+        }
+
+        if (userDoc?.exists()) {
           const userData = userDoc.data();
           setFirstName(userData.firstName || "");
           setLastName(userData.lastName || "");
           setAge(userData.age || "");
         }
       } else {
+        console.log("No authenticated user found.");
         setUser(null);
       }
       setLoading(false);
