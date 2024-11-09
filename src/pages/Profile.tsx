@@ -99,7 +99,7 @@ const Profile = () => {
             placeholder="Email"
             value={user.email || ""}
             disabled
-            className="w-full bg-gray-100 cursor-not-allowed"
+            className="w-full cursor-not-allowed"
           />
           <Input
             type="number"

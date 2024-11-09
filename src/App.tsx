@@ -13,15 +13,16 @@ import Profile from "./pages/Profile";
 import NoteEditor from "./pages/NoteEditor";
 import Navbar from "./components/Navbar";
 import AuthGuard from "./components/AuthGuard";
+import { useThemeStore } from "./store/useThemeStore";
 
 const queryClient = new QueryClient();
 
 const rootRoute = createRootRoute({
   component: () => (
-    <>
+    <div className="bg-background">
       <Navbar />
       <Outlet />
-    </>
+    </div>
   ),
 });
 
@@ -74,9 +75,12 @@ const routeTree = rootRoute.addChildren([
 const router = createRouter({ routeTree, defaultPreload: "intent" });
 
 const App = () => {
+  const theme = useThemeStore((state) => state.theme);
   return (
     <QueryClientProvider client={queryClient}>
-      <RouterProvider router={router} />
+      <div className={theme === "dark" ? "dark" : "light"}>
+        <RouterProvider router={router} />
+      </div>
     </QueryClientProvider>
   );
 };
